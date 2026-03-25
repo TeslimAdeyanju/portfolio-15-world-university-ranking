@@ -1,0 +1,38 @@
+table DimCountry
+	lineageTag: 09ca14e4-98c5-4388-bed9-2b19d54c93ab
+
+	column Country
+		dataType: string
+		lineageTag: 4af7cc1b-b6bf-44d8-9858-db417ee2d263
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 1e337aae-7bf0-42e5-b5a0-755c0b5faf02
+		summarizeBy: none
+		sourceColumn: CountryKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimCountry = m
+		mode: import
+		queryGroup: 'Dimesion Table'
+		source =
+				let
+				    Source = #"2026-world-university-rankings",
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"Country"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns"),
+				    #"Added Index" = Table.AddIndexColumn(#"Removed Duplicates", "Index", 1, 1, Int64.Type),
+				    #"Renamed Columns" = Table.RenameColumns(#"Added Index",{{"Index", "CountryKey"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

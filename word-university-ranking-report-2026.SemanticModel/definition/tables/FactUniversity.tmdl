@@ -1,0 +1,313 @@
+table FactUniversity
+	lineageTag: 9a784088-0d5c-4949-b1fe-3d8a4ba798ad
+
+	column RankingY2026
+		dataType: int64
+		formatString: 0
+		lineageTag: 200aff77-9c1f-4b44-be94-c053591cfb71
+		summarizeBy: sum
+		sourceColumn: RankingY2026
+
+		annotation SummarizationSetBy = Automatic
+
+	column RankingY2025
+		dataType: int64
+		formatString: 0
+		lineageTag: cbbac82c-b0ea-42f2-b7ea-75611f85524f
+		summarizeBy: sum
+		sourceColumn: RankingY2025
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Academic Reputation'
+		dataType: double
+		lineageTag: 02da9b0b-96cb-4926-81b8-71fd92e06d21
+		summarizeBy: sum
+		sourceColumn: Academic Reputation
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Employer Reputation'
+		dataType: double
+		lineageTag: f19c8a1d-f295-4ed3-a09d-975e7547d2a5
+		summarizeBy: sum
+		sourceColumn: Employer Reputation
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Faculty Student'
+		dataType: double
+		lineageTag: 1d930bc1-4d88-4ded-a340-c342b751173e
+		summarizeBy: sum
+		sourceColumn: Faculty Student
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Citations per Faculty'
+		dataType: double
+		lineageTag: 4e91306f-1255-4920-9a4b-db15805676e0
+		summarizeBy: sum
+		sourceColumn: Citations per Faculty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'International Faculty'
+		dataType: double
+		lineageTag: 71211f47-f4ce-4a76-abf9-e067076c25fd
+		summarizeBy: sum
+		sourceColumn: International Faculty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'International Students'
+		dataType: double
+		lineageTag: 3b2daa34-4140-4a34-9488-5064c7396882
+		summarizeBy: sum
+		sourceColumn: International Students
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'International Students Diversity'
+		dataType: double
+		lineageTag: b38fe377-408a-48d2-a5e5-0b879d9f1039
+		summarizeBy: sum
+		sourceColumn: International Students Diversity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'International Research Network'
+		dataType: double
+		lineageTag: 640aaebe-794b-4259-a976-441353c03b8c
+		summarizeBy: sum
+		sourceColumn: International Research Network
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Employment Outcomes'
+		dataType: double
+		lineageTag: 3af823e3-2a30-40f2-bdf9-186a73bf6556
+		summarizeBy: sum
+		sourceColumn: Employment Outcomes
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Sustainability
+		dataType: double
+		lineageTag: 086a591f-3685-4d67-9493-810192580273
+		summarizeBy: sum
+		sourceColumn: Sustainability
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Overall
+		dataType: double
+		lineageTag: 03db05f9-5cbe-47b0-95d9-93704a8bf2cc
+		summarizeBy: sum
+		sourceColumn: Overall
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CountryKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 26b806d0-4130-4e39-9423-2efd084d8e0c
+		summarizeBy: none
+		sourceColumn: CountryKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column RegionKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 72d1515b-7993-4575-b4ea-53fe5bfe969d
+		summarizeBy: none
+		sourceColumn: RegionKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column StatusKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a3c98971-2159-4cb2-9243-d1d8fc701420
+		summarizeBy: none
+		sourceColumn: StatusKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column SizeKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d9bb72dc-67aa-4b99-b26d-634aeba4d288
+		summarizeBy: none
+		sourceColumn: SizeKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ResearchKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 566188c7-7160-4da6-8327-ed6061d46d99
+		summarizeBy: none
+		sourceColumn: ResearchKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column FocusKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d173c929-b79b-4dcb-a0fb-3282ce8075f2
+		summarizeBy: none
+		sourceColumn: FocusKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Institution
+		dataType: string
+		lineageTag: 1449a81d-45ca-4a13-adc6-54627b268780
+		summarizeBy: none
+		sourceColumn: Institution
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Ranking tier category (Top 10, Top 50, Top 100, etc.)
+	column 'Ranking Tier' = SWITCH(TRUE(), [RankingY2026] <= 10, "Top 10", [RankingY2026] <= 50, "Top 50", [RankingY2026] <= 100, "Top 100", [RankingY2026] <= 200, "Top 200", [RankingY2026] <= 500, "Top 500", "Beyond 500")
+		lineageTag: 316d7f02-3a85-4a8b-ab82-fdd585ad2daa
+
+	/// Direction of ranking change from 2025 to 2026
+	column 'Rank Direction' = SWITCH(TRUE(), [RankingY2026] < [RankingY2025], "Improved", [RankingY2026] > [RankingY2025], "Declined", "Stable")
+		lineageTag: c8847671-d496-4c44-8f00-f642661ce678
+
+	/// Performance category based on overall score
+	column 'Performance Category' = IF([Overall] >= 75, "High Performer", IF([Overall] >= 50, "Mid Performer", "Emerging"))
+		lineageTag: 4720498d-bfa3-43c2-a499-e714ef5aeec4
+
+	/// Magnitude of ranking change
+	column 'Rank Change Magnitude' = VAR RankChange = ABS([RankingY2026] - [RankingY2025]) RETURN SWITCH(TRUE(), RankChange = 0, "No Change", RankChange <= 10, "Small (1-10)", RankChange <= 50, "Medium (11-50)", RankChange <= 100, "Large (51-100)", "Very Large (100+)")
+		lineageTag: dae96f3f-59e6-42cc-96b9-d2db998608d0
+
+	/// Research intensity classification
+	column 'Research Intensity' = IF([Academic Reputation] >= 80 && [Citations per Faculty] >= 80, "Research Intensive", "Teaching Focused")
+		lineageTag: ee46ddb8-994c-4faa-bee5-9c7f9d07b9ad
+
+	/// Level of internationalization
+	column 'International Level' = VAR IntScore = ([International Faculty] + [International Students] + [International Research Network]) / 3 RETURN IF(IntScore >= 70, "Highly International", IF(IntScore >= 40, "Moderately International", "Locally Focused"))
+		lineageTag: b6bdcf0a-2928-48ae-9946-0cb1a41baedb
+
+	/// Sustainability performance level
+	column 'Sustainability Level' = IF([Sustainability] >= 80, "Leader", IF([Sustainability] >= 60, "Good", IF([Sustainability] >= 40, "Fair", "Emerging")))
+		lineageTag: 5a1b2654-14e6-490a-b685-323ebb5a410b
+
+	/// Drill from performance category through research and international dimensions
+	hierarchy 'Performance Profile'
+		lineageTag: a5b3ac50-fb18-403e-8288-34e93aa3c324
+
+		level Performance
+			lineageTag: 33cbcba4-1965-4f3c-a7e4-bb1e30ec9c8c
+			column: 'Performance Category'
+
+		level Research
+			lineageTag: 746edfbc-5fb3-4ed9-b279-94dae8b6181e
+			column: 'Research Intensity'
+
+		level International
+			lineageTag: 1368a8a7-be36-4d7f-9ec7-9bc8e2ce2b09
+			column: 'International Level'
+
+	/// Analyze ranking changes from direction to magnitude
+	hierarchy 'Ranking Movement'
+		lineageTag: d12e2749-a5f3-4636-91de-12d23f178d49
+
+		level Direction
+			lineageTag: b10ed47d-eb98-4065-ae12-f9bc223fb589
+			column: 'Rank Direction'
+
+		level Magnitude
+			lineageTag: 2fc29368-3e57-4cdf-8b69-69bd5b5c14a7
+			column: 'Rank Change Magnitude'
+
+	/// Drill from ranking tier to performance category
+	hierarchy 'University Excellence'
+		lineageTag: d1c4b514-c20e-437e-9cbb-c1cdb4c00ba0
+
+		level Tier
+			lineageTag: ec1c50d2-fac2-44a5-b215-f78a02d66cfd
+			column: 'Ranking Tier'
+
+		level Performance
+			lineageTag: 4b72bbdb-1705-49d5-bff1-eaf7d1969ebe
+			column: 'Performance Category'
+
+	/// Sustainability performance levels with research context
+	hierarchy 'Sustainability Focus'
+		lineageTag: 20c6343b-9633-49a8-8733-bf4c7ac6f887
+
+		level Sustainability
+			lineageTag: 1f7ca10b-651e-4810-8800-d86cfca0feb8
+			column: 'Sustainability Level'
+
+		level 'Overall Performance'
+			lineageTag: f8eda736-3c25-48ba-8bc5-5ba46d083712
+			column: 'Performance Category'
+
+	partition FactUniversity = m
+		mode: import
+		queryGroup: 'Fact Table'
+		source =
+				let
+				    Source = #"2026-world-university-rankings",
+				    #"Merged Queries1" = Table.NestedJoin(Source, {"Country"}, DimCountry, {"Country"}, "DimCountry", JoinKind.LeftOuter),
+				    #"Expanded DimCountry" = Table.ExpandTableColumn(#"Merged Queries1", "DimCountry", {"CountryKey"}, {"CountryKey"}),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Expanded DimCountry",{"Country"}),
+				    #"Merged Queries2" = Table.NestedJoin(#"Removed Columns1", {"Region"}, DimRegion, {"Region"}, "DimRegion", JoinKind.LeftOuter),
+				    #"Expanded DimRegion" = Table.ExpandTableColumn(#"Merged Queries2", "DimRegion", {"RegionKey"}, {"RegionKey"}),
+				    #"Removed Columns2" = Table.RemoveColumns(#"Expanded DimRegion",{"Region"}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Removed Columns2","","Unknown",Replacer.ReplaceValue,{"Status"}),
+				    #"Merged Queries3" = Table.NestedJoin(#"Replaced Value", {"Status"}, DimStatus, {"Status"}, "DimStatus", JoinKind.LeftOuter),
+				    #"Expanded DimStatus" = Table.ExpandTableColumn(#"Merged Queries3", "DimStatus", {"StatusKey"}, {"StatusKey"}),
+				    #"Removed Columns3" = Table.RemoveColumns(#"Expanded DimStatus",{"Status"}),
+				    #"Merged Queries4" = Table.NestedJoin(#"Removed Columns3", {"Size"}, DimSize, {"SizeCode"}, "DimSize", JoinKind.LeftOuter),
+				    #"Expanded DimSize" = Table.ExpandTableColumn(#"Merged Queries4", "DimSize", {"SizeKey"}, {"SizeKey"}),
+				    #"Removed Columns4" = Table.RemoveColumns(#"Expanded DimSize",{"Size"}),
+				    #"Merged Queries5" = Table.NestedJoin(#"Removed Columns4", {"Research"}, DimResearch, {"ResearchCode"}, "DimResearch", JoinKind.LeftOuter),
+				    #"Expanded DimResearch" = Table.ExpandTableColumn(#"Merged Queries5", "DimResearch", {"ResearchKey"}, {"ResearchKey"}),
+				    #"Removed Columns5" = Table.RemoveColumns(#"Expanded DimResearch",{"Research"}),
+				    #"Merged Queries6" = Table.NestedJoin(#"Removed Columns5", {"Focus"}, DimFocus, {"FocusCode"}, "DimFocus", JoinKind.LeftOuter),
+				    #"Expanded DimFocus" = Table.ExpandTableColumn(#"Merged Queries6", "DimFocus", {"FocusKey"}, {"FocusKey"}),
+				    #"Removed Columns6" = Table.RemoveColumns(#"Expanded DimFocus",{"Focus"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Removed Columns6", each ([RankingY2025] <> null)),
+				    #"Removed Errors" = Table.RemoveRowsWithErrors(#"Filtered Rows", {"Overall"})
+				in
+				    #"Removed Errors"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

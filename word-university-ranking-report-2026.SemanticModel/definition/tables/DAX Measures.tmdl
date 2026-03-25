@@ -1,0 +1,205 @@
+table 'DAX Measures'
+	lineageTag: 7ad0eac5-7328-4f60-90d3-67740662af5f
+
+	measure 'Total Univerisities' = COUNTROWS(FactUniversity)
+		formatString: 0
+		lineageTag: ff3d2737-43cc-4b3a-b9cd-1a1465469c28
+
+	measure 'Total Countries' = DISTINCTCOUNT(FactUniversity[CountryKey])
+		formatString: 0
+		lineageTag: c27a3bff-1e09-4dd9-9a36-1a51d548c804
+
+	measure 'Avg Overall Score' =
+			
+			AVERAGE(FactUniversity[Overall])
+		lineageTag: da14c0a6-f7e6-448c-9424-cb88a887100b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Top 100 Univerisity' =
+			
+			CALCULATE(
+			    COUNTROWS(FactUniversity),
+			    FactUniversity[RankingY2026] <=100)
+		formatString: 0
+		lineageTag: 1443299e-2d5e-431f-9fc4-6bed2d4c8b11
+
+	/// Year-over-year ranking change from 2025 to 2026. Positive values indicate improved ranking (lower rank number), negative values indicate declined ranking.
+	measure 'Rank Change' = SUM(FactUniversity[RankingY2025]) - SUM(FactUniversity[RankingY2026])
+		formatString: #,##0
+		lineageTag: 56b7a037-98a7-4c55-a1ac-134e32ea6b93
+
+	measure 'Rank Change Category' = ```
+			
+			VAR Change = [Rank Change]
+			RETURN 
+			SWITCH(
+			    TRUE(),
+			    Change > 5, "Improved",
+			    Change < -5, "Declined",
+			    "Stable")
+			```
+		lineageTag: 79396362-1d1e-4f17-8179-f36532d543cf
+
+	measure 'Universities Improved' =
+			
+			CALCULATE(
+			    COUNTROWS(FactUniversity),
+			    FactUniversity[RankingY2026] < FactUniversity[RankingY2025])
+		formatString: 0
+		lineageTag: 6fe2151b-43af-4a8b-ab02-5821e7d95ed6
+
+	measure 'Universities Declined' =
+			
+			CALCULATE(
+			    COUNTROWS(FactUniversity),
+			    FactUniversity[RankingY2026] > FactUniversity[RankingY2025])
+		formatString: 0
+		lineageTag: c1d30301-a03f-4220-a8df-cfd476453896
+
+	measure 'Universities Stable' =
+			
+			CALCULATE(
+			    COUNTROWS(FactUniversity),
+			    ABS(FactUniversity[RankingY2025] - FactUniversity[RankingY2026]) <= 5)
+		formatString: 0
+		lineageTag: 995b22a7-c7dc-4f31-9dea-ae761c015d4a
+
+	/// Median overall score across all universities - better than average for skewed distributions
+	measure 'Median Overall Score' = MEDIAN(FactUniversity[Overall])
+		formatString: 0.00
+		lineageTag: 1f3443bb-fff0-4d5b-b48c-3045f77b8e59
+
+	/// How the current selection compares to global average overall score
+	measure 'Overall vs Average' = AVERAGE(FactUniversity[Overall]) - CALCULATE(AVERAGE(FactUniversity[Overall]), ALL(FactUniversity))
+		formatString: +0.00;-0.00;0.00
+		lineageTag: df751154-5e4d-4282-a029-c0db340499cb
+
+	/// Average ranking position in the current context (region, country, etc.)
+	measure 'Regional Avg Rank' = AVERAGE(FactUniversity[RankingY2026])
+		formatString: 0
+		lineageTag: 4961e15c-47be-42b5-8a10-f15d1aa260cd
+
+	/// Percentage of universities in Top 100
+	measure 'Top 100 Percentage' = DIVIDE([Top 100 Univerisity], [Total Univerisities], 0)
+		formatString: 0.0%
+		lineageTag: ddeb550a-6100-4a9b-b9c7-14e5fa69d8d1
+
+	/// Composite internationalization score - average of international faculty, students, and research network
+	measure 'International Index' = ```
+			AVERAGEX(
+			    FactUniversity,
+			    (FactUniversity[International Faculty] + 
+			     FactUniversity[International Students] + 
+			     FactUniversity[International Research Network]) / 3
+			)
+			```
+		formatString: 0.0
+		lineageTag: acc0aaa9-4a49-477c-9e5c-0a59fe5f1745
+
+	/// Research excellence composite - average of academic reputation and citations per faculty
+	measure 'Research Excellence' = ```
+			AVERAGEX(
+			    FactUniversity,
+			    (FactUniversity[Academic Reputation] + 
+			     FactUniversity[Citations per Faculty]) / 2
+			)
+			```
+		formatString: 0.0
+		lineageTag: 2fd8b8ed-8c4a-49b1-a033-ba4515fa8f4d
+
+	/// Count of universities ranked in top 500
+	measure 'Top 500 Universities' = CALCULATE([Total Univerisities], FactUniversity[RankingY2026] <= 500)
+		formatString: 0
+		lineageTag: 9cec7897-cc99-42b5-894c-b652e52f6213
+
+	/// Count of universities performing above global average
+	measure 'Universities Above Avg' =
+			VAR GlobalAvg = CALCULATE(AVERAGE(FactUniversity[Overall]), ALL(FactUniversity))
+			RETURN
+			CALCULATE([Total Univerisities], FactUniversity[Overall] > GlobalAvg)
+		formatString: 0
+		lineageTag: e0a8bc0e-1c2a-4053-843f-553099d1722c
+
+	/// Standard deviation of overall scores
+	measure 'StdDev Overall' = STDEV.P(FactUniversity[Overall])
+		formatString: 0.00
+		lineageTag: 958c4bd2-e3d7-409a-ac39-6b0f2c5b1d26
+
+	/// 75th percentile of overall scores
+	measure 'Top Quartile Threshold' = PERCENTILE.INC(FactUniversity[Overall], 0.75)
+		formatString: 0.0
+		lineageTag: d0e4bf58-bd50-4337-8e9c-727d3f067ea0
+
+	/// Average magnitude of ranking changes (volatility indicator)
+	measure 'Ranking Volatility' =
+			AVERAGEX(
+			    FactUniversity,
+			    ABS(FactUniversity[RankingY2026] - FactUniversity[RankingY2025])
+			)
+		formatString: 0.0
+		lineageTag: 61971c08-24de-4556-8ddc-c8ffff51665c
+
+	/// Universities with ranking change of 5 positions or less
+	measure 'Consistent Performers' = CALCULATE([Total Univerisities], ABS(FactUniversity[RankingY2026] - FactUniversity[RankingY2025]) <= 5)
+		formatString: 0
+		lineageTag: 2322646f-f0e4-44be-88ed-f193a8b5d5a6
+
+	/// Universities with sustainability score of 80 or higher
+	measure 'Sustainability Leaders' = CALCULATE([Total Univerisities], FactUniversity[Sustainability] >= 80)
+		formatString: 0
+		lineageTag: 0272d4d0-3ebe-4a15-8f80-732d609e6285
+
+	/// Universities in top 10% for citation performance
+	measure 'High Citation Count' = CALCULATE([Total Univerisities], FactUniversity[Citations per Faculty] >= PERCENTILE.INC(FactUniversity[Citations per Faculty], 0.90))
+		formatString: 0
+		lineageTag: 0520d44b-f332-448d-a375-45f878fe1ebe
+
+	/// Best ranking achieved by any university in the current context (country/region)
+	measure 'Best Rank in Context' = MIN(FactUniversity[RankingY2026])
+		formatString: 0
+		lineageTag: 81d96d87-4b21-4065-bd78-f31f16550002
+
+	/// Average rank improvement (positive means better ranking)
+	measure 'Avg Rank Improvement' =
+			AVERAGEX(
+			    FactUniversity,
+			    FactUniversity[RankingY2025] - FactUniversity[RankingY2026]
+			)
+		formatString: +0.0;-0.0;0.0
+		lineageTag: ba8401e6-16b2-4374-a46e-3d3293e2cec4
+
+	/// Percentage of universities above global average
+	measure 'Above Avg Percentage' = DIVIDE([Universities Above Avg], [Total Univerisities], 0)
+		formatString: 0.0%
+		lineageTag: 8f02832e-8627-40d3-8c28-e64a22ff7a0b
+
+	/// Percentage of universities that improved rankings
+	measure 'Improvement Rate' = DIVIDE([Universities Improved], [Total Univerisities], 0)
+		formatString: 0.0%
+		lineageTag: 9983c2d9-d88d-4b14-903e-fc336b0297a0
+
+	/// Percentage of consistent performers (minimal rank change)
+	measure 'Consistency Rate' = DIVIDE([Consistent Performers], [Total Univerisities], 0)
+		formatString: 0.0%
+		lineageTag: f879c92d-e1fa-40e6-91bc-77931e38ad9a
+
+	/// Average employment outcomes score
+	measure 'Avg Employment Score' = AVERAGE(FactUniversity[Employment Outcomes])
+		formatString: 0.0
+		lineageTag: afec47f3-b151-4030-b75a-e43e056b0572
+
+	partition 'DAX Measures' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

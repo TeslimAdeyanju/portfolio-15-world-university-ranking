@@ -1,0 +1,43 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-GB
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup 'Dimesion Table'
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup 'Fact Table'
+
+	annotation PBI_QueryGroupOrder = 1
+
+/// Errors in queries that were loaded on 26/12/2025 19:24:17.
+queryGroup 'Query Errors - 26/12/2025 19:24:17'
+
+	annotation PBI_QueryGroupOrder = 2
+
+/// Errors in queries that were loaded on 26/12/2025 19:29:36.
+queryGroup 'Query Errors - 26/12/2025 19:29:36'
+
+	annotation PBI_QueryGroupOrder = 3
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["2026-world-university-rankings","DimCountry","DimRegion","DimStatus","FactUniversity","DimSize","DimResearch","DimFocus","Errors in Fact Table","Errors in Fact Table (2)","DAX Measures"]
+
+annotation PBI_ProTooling = ["MCP-PBIModeling","TMDLView_Desktop","DevMode"]
+
+ref table DimCountry
+ref table DimRegion
+ref table DimStatus
+ref table FactUniversity
+ref table DimSize
+ref table DimResearch
+ref table DimFocus
+ref table 'DAX Measures'
+
+ref cultureInfo en-US
+

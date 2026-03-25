@@ -1,0 +1,24 @@
+relationship AutoDetected_62248c10-801e-4f38-a4ea-d33df74114ba
+	fromColumn: FactUniversity.CountryKey
+	toColumn: DimCountry.CountryKey
+
+relationship AutoDetected_95d7395b-7b4c-4ee4-bdec-a3ea321c45a2
+	fromColumn: FactUniversity.RegionKey
+	toColumn: DimRegion.RegionKey
+
+relationship AutoDetected_d42fffda-72e6-4c90-b7b3-58081bcf2df6
+	fromColumn: FactUniversity.StatusKey
+	toColumn: DimStatus.StatusKey
+
+relationship AutoDetected_d8290eba-eff7-4a06-a627-dbff02893bf3
+	fromColumn: FactUniversity.SizeKey
+	toColumn: DimSize.SizeKey
+
+relationship AutoDetected_beba12d7-b3a5-477a-9310-51a1555069e3
+	fromColumn: FactUniversity.ResearchKey
+	toColumn: DimResearch.ResearchKey
+
+relationship AutoDetected_138f59d4-0c86-4209-b1c7-fb108a80b919
+	fromColumn: FactUniversity.FocusKey
+	toColumn: DimFocus.FocusKey
+

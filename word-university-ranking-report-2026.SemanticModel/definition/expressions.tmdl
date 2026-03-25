@@ -1,0 +1,62 @@
+expression 2026-world-university-rankings =
+		let
+		    Source = Csv.Document(File.Contents("Y:\PowerBI\Class-4-Portfolio-Collection\World-University-Ranking-Project\2026-world-university-rankings.csv"),[Delimiter=",", Columns=20, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+		    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"RankingY2026", Int64.Type}, {"RankingY2025", Int64.Type}, {"Institution", type text}, {"Country", type text}, {"Region", type text}, {"Size", type text}, {"Focus", type text}, {"Research", type text}, {"Status", type text}, {"Academic Reputation", type number}, {"Employer Reputation", type number}, {"Faculty Student", type number}, {"Citations per Faculty", type number}, {"International Faculty", type number}, {"International Students", type number}, {"International Students Diversity", type number}, {"International Research Network", type number}, {"Employment Outcomes", type number}, {"Sustainability", type number}, {"Overall", type number}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each true),
+		    #"Removed Errors" = Table.RemoveRowsWithErrors(#"Filtered Rows", {"RankingY2026"}),
+		    #"Removed Errors1" = Table.RemoveRowsWithErrors(#"Removed Errors", {"RankingY2025"})
+		in
+		    #"Removed Errors1"
+	lineageTag: d4c2d2a2-a61c-4104-a6db-54ff572ba6ba
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Errors in Fact Table' =
+		let
+		Source = FactUniversity,
+		  #"Detected Type Mismatches" = let
+		    tableWithOnlyPrimitiveTypes = Table.SelectColumns(Source, Table.ColumnsOfType(Source, {type nullable number, type nullable text, type nullable logical, type nullable date, type nullable datetime, type nullable datetimezone, type nullable time, type nullable duration})),
+		    recordTypeFields = Type.RecordFields(Type.TableRow(Value.Type(tableWithOnlyPrimitiveTypes))),
+		    fieldNames = Record.FieldNames(recordTypeFields),
+		    fieldTypes = List.Transform(Record.ToList(recordTypeFields), each [Type]),
+		    pairs = List.Transform(List.Positions(fieldNames), (i) => {fieldNames{i}, (v) => if v = null or Value.Is(v, fieldTypes{i}) then v else error [Message = "The type of the value does not match the type of the column.", Detail = v], fieldTypes{i}})
+		in
+		    Table.TransformColumns(Source, pairs),
+		  #"Added Index" = Table.AddIndexColumn(#"Detected Type Mismatches", "Row Number" ,1),
+		  #"Kept Errors" = Table.SelectRowsWithErrors(#"Added Index", {"RankingY2026", "RankingY2025", "Academic Reputation", "Employer Reputation", "Faculty Student", "Citations per Faculty", "International Faculty", "International Students", "International Students Diversity", "International Research Network", "Employment Outcomes", "Sustainability", "Overall", "InstitutionKey", "CountryKey", "RegionKey", "StatusKey", "SizeKey", "ResearchKey", "FocusKey"}),
+		  #"Reordered Columns" = Table.ReorderColumns(#"Kept Errors", {"Row Number", "RankingY2026", "RankingY2025", "Academic Reputation", "Employer Reputation", "Faculty Student", "Citations per Faculty", "International Faculty", "International Students", "International Students Diversity", "International Research Network", "Employment Outcomes", "Sustainability", "Overall", "InstitutionKey", "CountryKey", "RegionKey", "StatusKey", "SizeKey", "ResearchKey", "FocusKey"})
+		in
+		  #"Reordered Columns"
+	lineageTag: 48ba5d34-1fd9-4215-bcbd-7302b5295f7c
+	queryGroup: 'Query Errors - 26/12/2025 19:24:17'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Errors in Fact Table (2)' =
+		let
+		Source = FactUniversity,
+		  #"Detected Type Mismatches" = let
+		    tableWithOnlyPrimitiveTypes = Table.SelectColumns(Source, Table.ColumnsOfType(Source, {type nullable number, type nullable text, type nullable logical, type nullable date, type nullable datetime, type nullable datetimezone, type nullable time, type nullable duration})),
+		    recordTypeFields = Type.RecordFields(Type.TableRow(Value.Type(tableWithOnlyPrimitiveTypes))),
+		    fieldNames = Record.FieldNames(recordTypeFields),
+		    fieldTypes = List.Transform(Record.ToList(recordTypeFields), each [Type]),
+		    pairs = List.Transform(List.Positions(fieldNames), (i) => {fieldNames{i}, (v) => if v = null or Value.Is(v, fieldTypes{i}) then v else error [Message = "The type of the value does not match the type of the column.", Detail = v], fieldTypes{i}})
+		in
+		    Table.TransformColumns(Source, pairs),
+		  #"Added Index" = Table.AddIndexColumn(#"Detected Type Mismatches", "Row Number" ,1),
+		  #"Kept Errors" = Table.SelectRowsWithErrors(#"Added Index", {"RankingY2026", "RankingY2025", "Academic Reputation", "Employer Reputation", "Faculty Student", "Citations per Faculty", "International Faculty", "International Students", "International Students Diversity", "International Research Network", "Employment Outcomes", "Sustainability", "Overall", "InstitutionKey", "CountryKey", "RegionKey", "StatusKey", "SizeKey", "ResearchKey", "FocusKey"}),
+		  #"Reordered Columns" = Table.ReorderColumns(#"Kept Errors", {"Row Number", "RankingY2026", "RankingY2025", "Academic Reputation", "Employer Reputation", "Faculty Student", "Citations per Faculty", "International Faculty", "International Students", "International Students Diversity", "International Research Network", "Employment Outcomes", "Sustainability", "Overall", "InstitutionKey", "CountryKey", "RegionKey", "StatusKey", "SizeKey", "ResearchKey", "FocusKey"})
+		in
+		  #"Reordered Columns"
+	lineageTag: 371638ea-7152-44a9-9f25-643d77389db2
+	queryGroup: 'Query Errors - 26/12/2025 19:29:36'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

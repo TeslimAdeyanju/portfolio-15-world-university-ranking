@@ -1,0 +1,39 @@
+table DimStatus
+	lineageTag: 16b7891e-573d-4363-9fcd-2466c6c6fa37
+
+	column Status
+		dataType: string
+		lineageTag: ad79bcc9-2d18-41b3-b31a-38ef6f91f3b4
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column StatusKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b0c9dc93-5e2f-49e5-aecc-bac5ba57705e
+		summarizeBy: none
+		sourceColumn: StatusKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimStatus = m
+		mode: import
+		queryGroup: 'Dimesion Table'
+		source =
+				let
+				    Source = #"2026-world-university-rankings",
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"Status"}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Removed Other Columns","","Unknown",Replacer.ReplaceValue,{"Status"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Replaced Value"),
+				    #"Added Index" = Table.AddIndexColumn(#"Removed Duplicates", "Index", 1, 1, Int64.Type),
+				    #"Renamed Columns" = Table.RenameColumns(#"Added Index",{{"Index", "StatusKey"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

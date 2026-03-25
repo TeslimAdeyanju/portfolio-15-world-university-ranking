@@ -4,3 +4,8 @@
 
 # Claude Code
 .claude/
+
+# Power BI local/cache files (machine-specific, not for version control)
+**/.pbi/localSettings.json
+**/.pbi/editorSettings.json
+**/.pbi/cache.abf

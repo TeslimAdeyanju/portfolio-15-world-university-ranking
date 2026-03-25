@@ -1,0 +1,78 @@
+table DimSize
+	lineageTag: 0b100621-08dc-4e68-a5af-00da6716f33f
+
+	column SizeKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 76e6b9f6-d55b-4781-90e0-a7c763c6eb12
+		summarizeBy: none
+		sourceColumn: SizeKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column SizeCode
+		dataType: string
+		lineageTag: 8f99cf93-e6b0-4091-bf9b-62bf6348b9d8
+		summarizeBy: none
+		sourceColumn: SizeCode
+		sortByColumn: SizeKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column SizeName
+		dataType: string
+		lineageTag: f80cd2a1-d51d-49ff-85e1-5d6cfeed4379
+		summarizeBy: none
+		sourceColumn: SizeName
+		sortByColumn: SizeKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column MinStudents
+		dataType: int64
+		formatString: 0
+		lineageTag: 7e09446d-30a9-4b95-8a04-2334d3b66fa3
+		summarizeBy: none
+		sourceColumn: MinStudents
+
+		annotation SummarizationSetBy = Automatic
+
+	column MaxStudents
+		dataType: int64
+		formatString: 0
+		lineageTag: 58c7885d-9882-42e9-a29c-9e2deb73f8b4
+		summarizeBy: none
+		sourceColumn: MaxStudents
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimSize = m
+		mode: import
+		queryGroup: 'Dimesion Table'
+		source = ```
+				let
+				    Source = #table(
+				        {"SizeKey", "SizeCode", "SizeName", "MinStudents", "MaxStudents"},
+				        {
+				            {1, "S", "Small", 0, 5000},
+				            {2, "M", "Medium", 5000, 12000},
+				            {3, "L", "Large", 12000, 30000},
+				            {4, "XL", "Extra Large", 30000, 999999}
+				        }
+				    ),
+				    ChangedTypes = Table.TransformColumnTypes(Source,{
+				        {"SizeKey", Int64.Type}, 
+				        {"SizeCode", type text}, 
+				        {"SizeName", type text}, 
+				        {"MinStudents", Int64.Type}, 
+				        {"MaxStudents", Int64.Type}
+				    })
+				in
+				    ChangedTypes
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

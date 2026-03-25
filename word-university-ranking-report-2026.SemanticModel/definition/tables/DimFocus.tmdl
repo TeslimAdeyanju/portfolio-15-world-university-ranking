@@ -1,0 +1,68 @@
+table DimFocus
+	lineageTag: 8af1187b-90d2-4fbd-bef3-a2c3b3de6eb7
+
+	column FocusKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 85cea0e1-7556-44df-bb73-461995d5ef59
+		summarizeBy: none
+		sourceColumn: FocusKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column FocusCode
+		dataType: string
+		lineageTag: 27cfa349-ea22-4dfc-80cd-e2bcb54c4946
+		summarizeBy: none
+		sourceColumn: FocusCode
+		sortByColumn: FocusLevel
+
+		annotation SummarizationSetBy = Automatic
+
+	column FocusName
+		dataType: string
+		lineageTag: 9c510175-8c3d-4196-b890-d429f09ca076
+		summarizeBy: none
+		sourceColumn: FocusName
+		sortByColumn: FocusLevel
+
+		annotation SummarizationSetBy = Automatic
+
+	column FocusLevel
+		dataType: int64
+		formatString: 0
+		lineageTag: 3825c881-de65-416e-952d-887db13cf63a
+		summarizeBy: none
+		sourceColumn: FocusLevel
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimFocus = m
+		mode: import
+		queryGroup: 'Dimesion Table'
+		source = ```
+				let
+				    Source = #table(
+				        {"FocusKey", "FocusCode", "FocusName", "FocusLevel"},
+				        {
+				            {1, "FC", "Fully Comprehensive", 4},
+				            {2, "CO", "Comprehensive", 3},
+				            {3, "FO", "Focused", 2},
+				            {4, "SP", "Specialist", 1}
+				        }
+				    ),
+				    ChangedTypes = Table.TransformColumnTypes(Source,{
+				        {"FocusKey", Int64.Type}, 
+				        {"FocusCode", type text}, 
+				        {"FocusName", type text}, 
+				        {"FocusLevel", Int64.Type}
+				    })
+				in
+				    ChangedTypes
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

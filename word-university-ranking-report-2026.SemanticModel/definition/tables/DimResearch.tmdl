@@ -1,0 +1,68 @@
+table DimResearch
+	lineageTag: 5f3022f3-9b61-4843-b3be-91b4938210b0
+
+	column ResearchKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 1983f082-f68f-4531-b88e-56727e862af4
+		summarizeBy: none
+		sourceColumn: ResearchKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ResearchCode
+		dataType: string
+		lineageTag: c17aad47-1625-4985-a8c7-1a724d90a72a
+		summarizeBy: none
+		sourceColumn: ResearchCode
+		sortByColumn: ResearchLevel
+
+		annotation SummarizationSetBy = Automatic
+
+	column ResearchName
+		dataType: string
+		lineageTag: 99205a00-adf0-49fc-8ac0-dda28637afb3
+		summarizeBy: none
+		sourceColumn: ResearchName
+		sortByColumn: ResearchLevel
+
+		annotation SummarizationSetBy = Automatic
+
+	column ResearchLevel
+		dataType: int64
+		formatString: 0
+		lineageTag: 1e51d9c5-38ca-4c4f-a516-63039353881d
+		summarizeBy: none
+		sourceColumn: ResearchLevel
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimResearch = m
+		mode: import
+		queryGroup: 'Dimesion Table'
+		source = ```
+				let
+				    Source = #table(
+				        {"ResearchKey", "ResearchCode", "ResearchName", "ResearchLevel"},
+				        {
+				            {1, "VH", "Very High", 4},
+				            {2, "HI", "High", 3},
+				            {3, "MD", "Medium", 2},
+				            {4, "LO", "Low", 1}
+				        }
+				    ),
+				    ChangedTypes = Table.TransformColumnTypes(Source,{
+				        {"ResearchKey", Int64.Type}, 
+				        {"ResearchCode", type text}, 
+				        {"ResearchName", type text}, 
+				        {"ResearchLevel", Int64.Type}
+				    })
+				in
+				    ChangedTypes
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
