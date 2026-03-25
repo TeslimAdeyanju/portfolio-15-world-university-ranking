@@ -189,6 +189,9 @@ table 'DAX Measures'
 		formatString: 0.0
 		lineageTag: afec47f3-b151-4030-b75a-e43e056b0572
 
+	measure Measure
+		lineageTag: aabe62b3-58be-4570-a722-cf39b6787d15
+
 	partition 'DAX Measures' = m
 		mode: import
 		source =
