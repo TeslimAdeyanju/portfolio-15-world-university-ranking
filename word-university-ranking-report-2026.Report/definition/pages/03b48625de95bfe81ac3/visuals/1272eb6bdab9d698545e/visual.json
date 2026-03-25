@@ -1,0 +1,74 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "1272eb6bdab9d698545e",
+  "position": {
+    "x": 9.770992366412214,
+    "y": 0,
+    "z": 0,
+    "height": 181.98473282442748,
+    "width": 263.81679389312978,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DAX Measures"
+                    }
+                  },
+                  "Property": "Above Avg Percentage"
+                }
+              },
+              "queryRef": "DAX Measures.Above Avg Percentage",
+              "nativeQueryRef": "Above Avg Percentage"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "DAX Measures"
+                  }
+                },
+                "Property": "Above Avg Percentage"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "9dcda1dcd157cd16da97",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DAX Measures"
+              }
+            },
+            "Property": "Above Avg Percentage"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

@@ -412,7 +412,7 @@ Examines whether sustainability leadership translates to ranking advantage, and 
 
 **Data origin**: QS World University Rankings dataset covering ranking years 2025 and 2026. All data reflects publicly available institutional ranking information. No personal or sensitive data is contained in this dataset.
 
-> **Note**: If you plan to refresh this report, ensure both source files are placed in the same directory as the `.pbix` file and update the data source paths via **File → Options → Data Source Settings** in Power BI Desktop.
+> **Note**: If you plan to refresh this report, ensure both source files are placed in the same directory as the `.pbip` file and update the data source paths via **File → Options → Data Source Settings** in Power BI Desktop.
 
 ---
 
@@ -421,14 +421,37 @@ Examines whether sustainability leadership translates to ranking advantage, and 
 ```
 10-World-University-Ranking-Project/
 │
-├── world-university-ranking-report.pbix          # Main Power BI report file
-├── 2026-world-university-rankings.csv            # Primary data source (fact data)
-├── Dimension Workbook.xlsx                        # Dimension reference data (lookup tables)
-├── world-university-ranking-model-documentation.md  # Full technical model documentation
-├── README.md                                      # This file
+├── word-university-ranking-report-2026.pbip                    # Power BI Project entry point
 │
-└── assets/                                        # Screenshots for README preview
-    ├── model-diagram.png                          # Power BI model view screenshot
+├── word-university-ranking-report-2026.SemanticModel/          # Data model (fully version-controlled)
+│   ├── definition/
+│   │   ├── tables/                                             # One .tmdl file per table
+│   │   │   ├── DAX Measures.tmdl                              # All 29 DAX measures
+│   │   │   ├── FactUniversity.tmdl                            # Fact table + 7 calculated columns
+│   │   │   ├── DimCountry.tmdl
+│   │   │   ├── DimRegion.tmdl
+│   │   │   ├── DimStatus.tmdl
+│   │   │   ├── DimSize.tmdl
+│   │   │   ├── DimResearch.tmdl
+│   │   │   └── DimFocus.tmdl
+│   │   ├── relationships.tmdl                                  # All 6 Many-to-One relationships
+│   │   ├── model.tmdl                                          # Model-level settings
+│   │   ├── expressions.tmdl                                    # Power Query (M) data source expressions
+│   │   └── cultures/en-US.tmdl                                # Locale / format strings
+│   └── diagramLayout.json                                      # Model view diagram positions
+│
+├── word-university-ranking-report-2026.Report/                 # Report layer
+│   └── definition/
+│       ├── pages/                                              # One folder per report page
+│       └── report.json                                         # Report-level settings and theme
+│
+├── 2026-world-university-rankings.csv                          # Primary data source (fact data)
+├── Dimension Workbook.xlsx                                      # Dimension reference data (lookup tables)
+├── world-university-ranking-model-documentation.md             # Full technical model documentation
+├── README.md                                                    # This file
+│
+└── assets/                                                      # Screenshots for README preview
+    ├── model-diagram.png                                        # Power BI model view screenshot
     ├── page-1-executive-overview.png
     ├── page-2-geographic-analysis.png
     ├── page-3-ranking-movement.png
@@ -436,7 +459,7 @@ Examines whether sustainability leadership translates to ranking advantage, and 
     └── page-5-sustainability.png
 ```
 
-> **Note**: The `assets/` folder requires report screenshots to be exported from Power BI Desktop. Open the `.pbix` file, navigate to each page, and use **File → Export → Export to PDF** or take screenshots directly from the report canvas for embedding in this README.
+> **Note**: This project uses the **PBIP (Power BI Project) format**, which stores the semantic model and report definition as human-readable text files (TMDL/JSON). This enables full git version control of every DAX measure, relationship, and report page. The `assets/` folder requires screenshots taken directly from Power BI Desktop for embedding in this README.
 
 ---
 
@@ -450,8 +473,8 @@ Examines whether sustainability leadership translates to ranking advantage, and 
 ### Steps
 
 1. **Clone or download** this repository to your local machine
-2. Ensure `2026-world-university-rankings.csv` and `Dimension Workbook.xlsx` are in the **same folder** as the `.pbix` file
-3. Open `world-university-ranking-report.pbix` in Power BI Desktop
+2. Ensure `2026-world-university-rankings.csv` and `Dimension Workbook.xlsx` are in the **same folder** as the `.pbip` file
+3. Open `word-university-ranking-report-2026.pbip` in Power BI Desktop
 4. If prompted about data source paths, go to **File → Options and Settings → Data Source Settings** and update the file paths to your local directory
 5. Click **Refresh** in the Home ribbon to reload data
 6. Navigate report pages using the tabs at the bottom of the canvas

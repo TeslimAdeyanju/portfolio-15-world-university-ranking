@@ -9,3 +9,9 @@
 **/.pbi/localSettings.json
 **/.pbi/editorSettings.json
 **/.pbi/cache.abf
+
+# Power BI scratch TMDL scripts (not production)
+**/TMDLScripts/
+
+# Legacy binary report (replaced by PBIP format)
+*.pbix
