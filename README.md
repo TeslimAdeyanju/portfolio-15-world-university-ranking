@@ -445,9 +445,14 @@ Examines whether sustainability leadership translates to ranking advantage, and 
 │       ├── pages/                                              # One folder per report page
 │       └── report.json                                         # Report-level settings and theme
 │
-├── 2026-world-university-rankings.csv                          # Primary data source (fact data)
-├── Dimension Workbook.xlsx                                      # Dimension reference data (lookup tables)
-├── world-university-ranking-model-documentation.md             # Full technical model documentation
+├── data/                                                        # All raw data sources
+│   ├── 2026-world-university-rankings.csv                      # Primary fact data (592 universities)
+│   ├── 22025_QS_World_University_Rankings.csv                  # QS 2025 source dataset
+│   └── Dimension Workbook.xlsx                                  # Dimension lookup tables
+│
+├── docs/                                                        # Documentation
+│   └── world-university-ranking-model-documentation.md         # Full technical model documentation
+│
 ├── README.md                                                    # This file
 │
 └── assets/                                                      # Screenshots for README preview
